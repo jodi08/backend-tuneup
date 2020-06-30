@@ -44,7 +44,7 @@ def is_duplicate(title, movies):
             return True
     return False
 
-#@profile
+@profile
 def find_duplicate_movies(src):
     """Returns a list of duplicate movies from a src list."""
     movies = read_movies(src)
