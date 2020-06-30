@@ -27,6 +27,7 @@ def profile(func):
 
         get_stats_obj = pstats.Stats(profile).strip_dirs().sort_stats("cumulative").print_stats(10)
         return value
+        print(f'Best time across 7 repeats of 5 runs per repeat: {value}')
     return wrapper_timer
 
 
@@ -63,13 +64,14 @@ def timeit_helper():
         stmt="find_duplicate_movies('movies.txt')",
         setup="from __main__ import find_duplicate_movies"
     )
-    runs_per_repeat = 3
+    runs_per_repeat = 7
     num_repeats = 5
     result = timer_.repeat(
         repeat=num_repeats,
         number=runs_per_repeat)
     best_time = min(result) / runs_per_repeat
-    print(f"The best per function time was {best_time:.2f}")
+    print(f"The best per function time across 7 repeats of 5 runs was {best_time:.2f}")
+timeit_helper()
 
 
 def main():
@@ -77,7 +79,7 @@ def main():
     result = find_duplicate_movies('movies.txt')
     print(f'Found {len(result)} duplicate movies:')
     print('\n'.join(result))
-    #timeit_helper()
+    timeit_helper()
 
 
 if __name__ == '__main__':
